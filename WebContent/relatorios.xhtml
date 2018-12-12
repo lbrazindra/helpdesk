@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="cabecalho">
+		<p:outputPanel>Relatórios</p:outputPanel>
+	</ui:define>
+	<ui:define name="conteudo">
+
+		<p:messages globalOnly="true" />
+
+		<h:form>
+			<p:fieldset legend="Chamados ADM">
+				<p:dataTable value="#{relatoriosBean.relatoriosAdm}"
+					scrollWidth="1100" var="relatorios" id="tabelaRelatorios"
+					scrollable="true" emptyMessage="Não existem nenhum relatorios.">
+					<f:facet name="header">
+						<h:commandLink>
+							<p:graphicImage library="img" name="xls.png" width="24" />
+							<p:dataExporter type="xls" target="tabelaRelatorios"
+								fileName="chamadosAdm" />
+						</h:commandLink>
+						<h:commandLink>
+							<p:graphicImage library="img" name="pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="tabelaRelatorios"
+								encoding="ISO-8859-1" fileName="chamadosAdm" />
+						</h:commandLink>
+					</f:facet>
+					<p:column width="50">
+						<f:facet name="header">Id</f:facet>
+						<h:outputText value="#{relatorios.idChamado}" />
+					</p:column>
+					<p:column width="200">
+						<f:facet name="header">Titulo do Chamado</f:facet>
+						<h:outputText value="#{relatorios.tituloChamado}" />
+					</p:column>
+					<p:column width="150">
+						<f:facet name="header">Status do Chamado</f:facet>
+						<h:outputText value="#{relatorios.nomeStatus}" />
+					</p:column>
+					<p:column width="150">
+						<f:facet name="header">Departamento do Chamado</f:facet>
+						<h:outputText value="#{relatorios.nomeDepartamento}" />
+					</p:column>
+					<p:column width="300">
+						<f:facet name="header">Nome do usuário</f:facet>
+						<h:outputText value="#{relatorios.nome}" />
+					</p:column>
+					<p:column width="150">
+						<f:facet name="header">Telefone do usuário</f:facet>
+						<h:outputText value="#{relatorios.telefone}" />
+					</p:column>
+					<p:column width="300">
+						<f:facet name="header">E-mail do usuário</f:facet>
+						<h:outputText value="#{relatorios.email}" />
+					</p:column>
+					<p:column width="300">
+						<f:facet name="header">ADM do Chamado</f:facet>
+						<h:outputText value="#{relatorios.nomeAdm}" />
+					</p:column>
+					<p:column width="150">
+						<f:facet name="header">Telefone do ADM</f:facet>
+						<h:outputText value="#{relatorios.telefoneAdm}" />
+					</p:column>
+					<p:column width="300">
+						<f:facet name="header">E-mail do ADM</f:facet>
+						<h:outputText value="#{relatorios.emailAdm}" />
+					</p:column>
+					<p:column width="300">
+						<f:facet name="header">Data de abertura:</f:facet>
+						<p:inputText value="#{relatorios.dataAbertura}" readonly="true">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
+								timeZone="America/Sao_Paulo" />
+						</p:inputText>
+					</p:column>
+					<p:column width="300">
+						<f:facet name="header">Data de fechamento:</f:facet>
+						<p:inputText value="#{relatorios.dataFechamento}" readonly="true">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
+								timeZone="America/Sao_Paulo" />
+						</p:inputText>
+					</p:column>
+					<p:column width="30" exportable="false">
+						<h:commandLink icon="fa fa-fw fa-search"
+							action="#{consultaChamadoBean.abrirChamado(relatorios.idChamado)}">
+							<i class="fa fa-search-plus"></i>
+						</h:commandLink>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="cabecalho">
+		<p:outputPanel>Consulta de chamados</p:outputPanel>
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="formtabelaChamados">
+			<p:fieldset legend="Chamados">
+				<p:dataTable value="#{consultaChamadoBean.chamados}" var="chamado"
+					id="tabelaChamados" emptyMessage="Não existem nenhum chamado.">
+					<p:column sortBy="#{chamado.idChamado}">
+						<f:facet name="header">Id chamado</f:facet>
+						<h:outputText value="#{chamado.idChamado}" />
+					</p:column>
+					<p:column sortBy="#{chamado.tituloChamado}">
+						<f:facet name="header">Título</f:facet>
+						<h:outputText value="#{chamado.tituloChamado}" />
+					</p:column>
+					<p:column sortBy="#{chamado.dataAbertura.time}">
+						<f:facet name="header">Data abertura</f:facet>
+						<h:outputText value="#{chamado.dataAbertura.time}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm"
+								timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Status</f:facet>
+						<h:outputText value="#{chamado.status.nomeStatus}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Departamento</f:facet>
+						<h:outputText
+							value="#{chamado.departamentoChamado.nomeDepartamento}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">ADM do Chamado</f:facet>
+						<h:outputText
+							value="#{chamado.nomeUsuarioAdmChamado}" />
+					</p:column>
+					<p:column>
+						<p:commandButton icon="fa fa-fw fa-search" value="Visualizar"
+							action="#{consultaChamadoBean.abrirChamado(chamado.idChamado)}">
+							<f:param name="#{consultaChamadoBean.chamados}"></f:param>
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
