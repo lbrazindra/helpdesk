@@ -12,7 +12,7 @@
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form>
-
+			<h1>Teste</h1>
 			<p:messages id="messages" />
 			<p:fieldset legend="Novo Chamado">
 				<p:panelGrid columns="4">
@@ -148,7 +148,7 @@
 						icon="pi pi-exclamation-triangle" />
 				</p:commandButton>
 				<p:commandButton value="Fechar chamado"
-					action="#{consultaChamadoBean.fechar}" process="@form" onclick="javascript:window.location='#cabecalho'"
+					action="#{consultaChamadoBean.fechar}" process="@form"
 					rendered="#{consultaChamadoBean.chamado.status.idStatus == 4 and sessionScope['usuarioLogado'].usuarioAdm}"
 					update="@form">
 					<p:confirm header="Confirmação"
